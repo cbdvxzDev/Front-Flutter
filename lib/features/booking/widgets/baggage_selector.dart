@@ -32,7 +32,7 @@ class BaggageSelector extends StatelessWidget {
         ),
         const SizedBox(height: AppSpacing.md),
         SizedBox(
-          height: 176,
+          height: 200,
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
             physics: const BouncingScrollPhysics(),
@@ -99,7 +99,7 @@ class _BaggageOptionCard extends StatelessWidget {
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 180),
           curve: Curves.easeOut,
-          height: 176,
+          height: 200,
           padding: const EdgeInsets.all(AppSpacing.lg),
           decoration: BoxDecoration(
             gradient: isSelected ? AppColors.glassGradient : null,
@@ -114,89 +114,100 @@ class _BaggageOptionCard extends StatelessWidget {
                 : AppShadows.card,
           ),
           child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Container(
-                      width: 42,
-                      height: 42,
-                      decoration: BoxDecoration(
-                        gradient: isSelected ? AppColors.goldGradient : null,
-                        color: isSelected
-                            ? null
-                            : AppColors.primary.withValues(alpha: 0.08),
-                        borderRadius:
-                            BorderRadius.circular(AppSpacing.radiusMd),
-                      ),
-                      child: Icon(
-                        _icon,
-                        color: isSelected
-                            ? AppColors.primaryDark
-                            : AppColors.primary,
-                        size: 20,
-                      ),
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Container(
+                    width: 42,
+                    height: 42,
+                    decoration: BoxDecoration(
+                      gradient: isSelected ? AppColors.goldGradient : null,
+                      color: isSelected
+                          ? null
+                          : AppColors.primary.withValues(alpha: 0.08),
+                      borderRadius:
+                          BorderRadius.circular(AppSpacing.radiusMd),
                     ),
-                    const Spacer(),
-                    AnimatedContainer(
-                      duration: const Duration(milliseconds: 180),
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: AppSpacing.sm,
-                        vertical: AppSpacing.xs,
-                      ),
-                      decoration: BoxDecoration(
-                        color: isSelected
-                            ? AppColors.gold.withValues(alpha: 0.18)
-                            : AppColors.surfaceVariant,
-                        borderRadius:
-                            BorderRadius.circular(AppSpacing.radiusSm),
-                      ),
-                      child: Text(
-                        option.price == 0 ? 'Incluido' : 'Upgrade',
-                        style: TextStyle(
-                          fontSize: 10.5,
-                          fontWeight: FontWeight.w700,
+                    child: Icon(
+                      _icon,
+                      color: isSelected
+                          ? AppColors.primaryDark
+                          : AppColors.primary,
+                      size: 20,
+                    ),
+                  ),
+                  const Spacer(),
+                  Flexible(
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      alignment: Alignment.centerRight,
+                      child: AnimatedContainer(
+                        duration: const Duration(milliseconds: 180),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: AppSpacing.sm,
+                          vertical: AppSpacing.xs,
+                        ),
+                        decoration: BoxDecoration(
                           color: isSelected
-                              ? AppColors.primary
-                              : AppColors.textSecondary,
+                              ? AppColors.gold.withValues(alpha: 0.18)
+                              : AppColors.surfaceVariant,
+                          borderRadius:
+                              BorderRadius.circular(AppSpacing.radiusSm),
+                        ),
+                        child: Text(
+                          option.price == 0 ? 'Incluido' : 'Upgrade',
+                          maxLines: 1,
+                          style: TextStyle(
+                            fontSize: 10.5,
+                            fontWeight: FontWeight.w700,
+                            color: isSelected
+                                ? AppColors.primary
+                                : AppColors.textSecondary,
+                          ),
+                        ),
                       ),
                     ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: AppSpacing.md),
-                Text(
-                  option.label,
-                  style: const TextStyle(
-                    fontSize: 13.5,
-                    fontWeight: FontWeight.w800,
-                    color: AppColors.textPrimary,
                   ),
+                ],
+              ),
+              const SizedBox(height: AppSpacing.md),
+              Text(
+                option.label,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
+                  fontSize: 13.5,
+                  fontWeight: FontWeight.w800,
+                  color: AppColors.textPrimary,
                 ),
-                const SizedBox(height: AppSpacing.xs),
-                Text(
-                  _description,
-                  style: const TextStyle(
-                    fontSize: 11.5,
-                    color: AppColors.textSecondary,
-                    height: 1.4,
-                  ),
+              ),
+              const SizedBox(height: AppSpacing.xs),
+              Text(
+                _description,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
+                  fontSize: 11.5,
+                  color: AppColors.textSecondary,
+                  height: 1.4,
                 ),
-                const Spacer(),
-                Text(
-                  option.price == 0
-                      ? 'Sin costo adicional'
-                      : '+${CurrencyFormatter.cop(option.price)}',
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w800,
-                    color: isSelected ? AppColors.primary : AppColors.textPrimary,
-                  ),
+              ),
+              const Spacer(),
+              Text(
+                option.price == 0
+                    ? 'Sin costo adicional'
+                    : '+${CurrencyFormatter.cop(option.price)}',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w800,
+                  color: isSelected ? AppColors.primary : AppColors.textPrimary,
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
+      ),
     );
   }
 }
